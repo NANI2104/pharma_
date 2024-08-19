@@ -169,7 +169,7 @@ def predict():
         total_weeks = rounded_y_pred1 + rounded_y_pred2
         results.append((country, total_weeks))
 
-    results.sort(key=lambda x: x[1], reverse=True)
+    results.sort(key=lambda x: x[1])
     top_5_results = results[:5]
     print(results)
     return render_template('index2.html', results=top_5_results)
