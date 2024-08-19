@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Prediction Form</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        margin: 20px;
+        background-color: rgb(255, 255, 255);
+      }
+      .container {
+        max-width: 600px;
+        margin: auto;
+      }
+      label {
+        display: block;
+        margin: 10px 0 5px;
+      }
+      select,
+      input[type="text"] {
+        width: 100%;
+        padding: 8px;
+        margin-bottom: 10px;
+      }
+      button {
+        padding: 10px 20px;
+        background-color: #4caf50;
+        color: white;
+        border: none;
+        cursor: pointer;
+      }
+      button:hover {
+        background-color: #45a049;
+      }
+      .results {
+        margin-top: 20px;
+      }
+      .results ul {
+        list-style-type: none;
+        padding: 0;
+      }
+
+      .results ul li {
+        background-color: #f9f9f9;
+        padding: 10px;
+        margin-bottom: 5px;
+        border: 1px solid #ddd;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h1>Prediction Form</h1>
+      <form id="predictionForm" action="/predict" method="post">
+        <label for="developmentUnit">Development Unit:</label>
+        <select id="developmentUnit" name="developmentUnit" required>
+          <option value="" disabled selected>Select a DevelopmentUnit</option>
+          <option value="Cardiovascular">Cardiovascular</option>
+          <option value="NeuroScience">NeuroScience</option>
+          <option value="Oncology">Oncology</option>
+          <option value="Respiratory">Respiratory</option>
+        </select>
+
+        <label for="phase">Phase:</label>
+        <select id="phase" name="phase" required>
+          <option value="" disabled selected>Select a Phase</option>
+          <option value="Phase I">Phase I</option>
+          <option value="Phase II">Phase II</option>
+          <option value="Phase III">Phase III</option>
+          <option value="Phase IV">Phase IV</option>
+        </select>
+
+        <label for="newIndication">Is this a new indication?</label>
+        <select id="newIndication" name="newIndication" required>
+          <option value="" disabled selected>Select a Indication</option>
+          <option value="Yes">Yes</option>
+          <option value="No">No</option>
+        </select>
+
+        <label for="blinding">Blinding:</label>
+        <select id="blinding" name="blinding" required>
+          <option value="" disabled selected>Select a Blind</option>
+          <option value="Double Blind">Double Blind</option>
+          <option value="Open Label">Open Label</option>
+          <option value="Single Blind">Single Blind</option>
+        </select>
+
+        <label for="pediatric">Is this pediatric only?</label>
+        <select id="pediatric" name="pediatric" required>
+          <option value="" disabled selected>Is Pediatric or not?</option>
+          <option value="Yes">Yes</option>
+          <option value="No">No</option>
+        </select>
+
+        <button type="submit">Submit</button>
+      </form>
+
+      <div class="results">
+        {% if results %}
+        <h2>Top 5 Countries</h2>
+        <ul>
+          {% for country, weeks in results %}
+          <li>{{ country }}: {{ weeks }} weeks</li>
+          {% endfor %}
+        </ul>
+        {% else %}
+        <p>No predictions to display. Please fill out the form and submit.</p>
+        {% endif %}
+      </div>
+    </div>
+    <form action="{{ url_for('main') }}" method="get">
+      <button type="submit">Back</button>
+    </form>
+  </body>
+</html>

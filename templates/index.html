@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Clinical Trial Demand Prediction</title>
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='styles.css') }}"
+    />
+  </head>
+  <body>
+    <div class="header">
+      <h1>Clinical Trial Demand Prediction</h1>
+      <p>
+        Enter the details below to get predictions for Clinical Trial
+        milestones.
+      </p>
+    </div>
+    <div class="form-container">
+      <form method="post">
+        <label for="country">Country:</label>
+        <select id="country" name="country" required>
+          <option value="" disabled selected>Select your country</option>
+          <option value="Argentina">Argentina</option>
+          <option value="Australia">Australia</option>
+          <option value="Brazil">Brazil</option>
+          <option value="Canada">Canada</option>
+          <option value="China">China</option>
+          <option value="France">France</option>
+          <option value="India">India</option>
+          <option value="Italy">Italy</option>
+          <option value="Japan">Japan</option>
+          <option value="South Africa">South Africa</option>
+          <option value="Spain">Spain</option>
+          <option value="UK">UK</option>
+          <option value="USA">USA</option>
+        </select>
+
+        <label for="development_unit">Development Unit:</label>
+        <select id="development_unit" name="development_unit" required>
+          <option value="" disabled selected>Select development unit</option>
+          <option value="Cardiovascular">Cardiovascular</option>
+          <option value="NeuroScience">NeuroScience</option>
+          <option value="Oncology">Oncology</option>
+          <option value="Respiratory">Respiratory</option>
+        </select>
+
+        <label for="phase">Phase:</label>
+        <select id="phase" name="phase" required>
+          <option value="" disabled selected>Select phase</option>
+          <option value="Phase I">Phase I</option>
+          <option value="Phase II">Phase II</option>
+          <option value="Phase III">Phase III</option>
+          <option value="Phase IV">Phase IV</option>
+        </select>
+
+        <label for="new_indication">New Indication:</label>
+        <select id="new_indication" name="new_indication" required>
+          <option value="" disabled selected>
+            Select new indication status
+          </option>
+          <option value="Yes">Yes</option>
+          <option value="No">No</option>
+        </select>
+
+        <label for="blinding">Blinding:</label>
+        <select id="blinding" name="blinding" required>
+          <option value="" disabled selected>Select blinding type</option>
+          <option value="Double Blind">Double Blind</option>
+          <option value="Open Label">Open Label</option>
+          <option value="Single Blind">Single Blind</option>
+        </select>
+
+        <label for="pediatric">Pediatric Only:</label>
+        <select id="pediatric" name="pediatric" required>
+          <option value="" disabled selected>Select pediatric status</option>
+          <option value="Yes">Yes</option>
+          <option value="No">No</option>
+        </select>
+
+        <button type="submit">Predict</button>
+      </form>
+    </form>
+    <form action="{{ url_for('continue_prediction') }}" method="get">
+        <button type="submit">Continue</button>
+    </form>
+      {% if result %}
+      <div class="result-container">
+        <h2>Prediction Results</h2>
+        <p>
+          <strong>Predicted CTT-FP Weeks:</strong> {{ result.ctt_fp }} Weeks
+        </p>
+        <p>
+          <strong>Predicted FP-FSI Weeks:</strong> {{ result.fp_fsi }} Weeks
+        </p>
+        <p>
+          <strong>Total Weeks for CTT-FSI:</strong> {{ result.total_weeks }}
+          Weeks
+        </p>
+      </div>
+      {% endif %}
+    </div>
+  </body>
+</html>
